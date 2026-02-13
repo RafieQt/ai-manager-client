@@ -1,6 +1,7 @@
 import React, { use, useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router';
 import { AuthContext } from '../../context/AuthContext';
+import { toast } from 'react-toastify';
 
 const ModelDetails = () => {
     const modelData = useLoaderData();
@@ -24,7 +25,7 @@ const ModelDetails = () => {
     
     const handlePurchase = async () => {
         if (!user) {
-            alert("Please login first");
+            toast("Please login first");
             return;
         }
 
@@ -40,7 +41,7 @@ const ModelDetails = () => {
         };
         console.log("Purchasing:", purchaseInfo);
 
-        const res = await fetch("http://localhost:5000/purchase", {
+        const res = await fetch("https://ai-manager-server-dun.vercel.app/purchase", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(purchaseInfo)
@@ -55,7 +56,7 @@ const ModelDetails = () => {
                 purchased: prev.purchased + 1
             }));
 
-            alert("Model Purchased Successfully!");
+            toast("Model Purchased Successfully!");
         }
     };
 
@@ -64,7 +65,7 @@ const ModelDetails = () => {
         const confirmDelete = window.confirm("Are you sure?");
         if (!confirmDelete) return;
 
-        await fetch(`http://localhost:5000/models/${_id}`, {
+        await fetch(`https://ai-manager-server-dun.vercel.app/models/${_id}`, {
             method: "DELETE"
         });
 

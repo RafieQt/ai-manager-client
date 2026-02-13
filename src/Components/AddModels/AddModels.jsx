@@ -31,7 +31,7 @@ const AddModels = () => {
     };
 
     try {
-      const res = await fetch("http://localhost:5000/models", {
+      const res = await fetch("https://ai-manager-server-dun.vercel.app/models", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

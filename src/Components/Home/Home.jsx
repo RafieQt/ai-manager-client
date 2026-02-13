@@ -6,7 +6,7 @@ import AboutAIModels from '../AboutModels/AboutAIModels';
 import GetStartedSection from '../GetStartedSection/GetStartedSection';
 import { AuthContext } from '../../context/AuthContext';
 
-const latestModelsPromise = fetch('http://localhost:5000/latest-models')
+const latestModelsPromise = fetch('https://ai-manager-server-dun.vercel.app/latest-models')
     .then(res => res.json())
 
 const Home = () => {

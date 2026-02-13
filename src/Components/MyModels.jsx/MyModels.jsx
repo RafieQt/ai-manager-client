@@ -7,7 +7,7 @@ const MyModels = () => {
     const [models, setModels] = useState([]);
     useEffect(()=>{
         if(user?.email){
-            fetch(`http://localhost:5000/models?email=${user.email}`)
+            fetch(`https://ai-manager-server-dun.vercel.app/models?email=${user.email}`)
             .then(res=> res.json())
             .then(data=>{
                 console.log("TYPE:", typeof data);

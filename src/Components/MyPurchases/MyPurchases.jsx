@@ -12,7 +12,7 @@ const MyPurchases = () => {
 
     const fetchPurchases = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/purchases?email=${user.email}`);
+        const res = await fetch(`https://ai-manager-server-dun.vercel.app/purchases?email=${user.email}`);
         const data = await res.json();
         setPurchases(data);
       } catch (error) {

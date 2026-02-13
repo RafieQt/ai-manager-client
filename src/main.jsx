@@ -15,6 +15,8 @@ import PrivateRoute from './Layouts/PrivateRoute.jsx';
 import ModelDetails from './Components/ModelDetails/ModelDetails.jsx';
 import MyModels from './Components/MyModels.jsx/MyModels.jsx';
 import MyPurchases from './Components/MyPurchases/MyPurchases.jsx';
+import { ToastContainer } from 'react-toastify';
+import ErrorPage from './Components/ErrorPage/ErrorPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -28,7 +30,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/models',
-        loader: () => fetch('http://localhost:5000/models'),
+        loader: () => fetch('https://ai-manager-server-dun.vercel.app/models'),
         element: <AllModels></AllModels>
       },
       {
@@ -47,7 +49,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/models/:id',
-        loader: ({params})=>fetch(`http://localhost:5000/models/${params.id}`),
+        loader: ({params})=>fetch(`https://ai-manager-server-dun.vercel.app/models/${params.id}`),
         element: 
           <PrivateRoute>
             <ModelDetails />
@@ -69,6 +71,10 @@ const router = createBrowserRouter([
         path: '/register',
         element: <Register></Register>
       },
+      {
+        path:'/*',
+        element: <ErrorPage></ErrorPage>
+      }
 
     ]
   },
@@ -78,7 +84,9 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />
+      <RouterProvider router={router} />,
+      <ToastContainer />
     </AuthProvider>
+    
   </StrictMode>
 )
