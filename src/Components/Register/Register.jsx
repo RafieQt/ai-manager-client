@@ -1,51 +1,50 @@
-import { useState } from "react";
+import { use, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import {
-  createUserWithEmailAndPassword,
+  
   GoogleAuthProvider,
-  signInWithPopup,
-  updateProfile
+  
+  
 } from "firebase/auth";
-import { auth } from "../../firebase/firebase.init";
+
+import AuthProvider from "../../context/AuthProvider";
+import { AuthContext } from "../../context/AuthContext";
 
 
 const Register = () => {
+  const {createUser, updateUser, setUser} = use(AuthContext);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const provider = new GoogleAuthProvider();
+ 
 
   const handleRegister = async (e) => {
-    e.preventDefault();
-    setError("");
+  e.preventDefault();
+  setError("");
 
-    const form = e.target;
-    const name = form.name.value;
-    const email = form.email.value;
-    const photo = form.photo.value;
-    const password = form.password.value;
+  const form = e.target;
+  const name = form.name.value;
+  const email = form.email.value;
+  const photo = form.photo.value;
+  const password = form.password.value;
 
-    try {
-      const result = await createUserWithEmailAndPassword(auth, email, password);
-
-      // update profile
-      await updateProfile(result.user, {
-        displayName: name,
-        photoURL: photo
-      });
-
-      navigate("/");
-    } catch (err) {
-      setError(err.message);
-    }
-  };
+  try {
+    const res = await createUser(email, password);
+    await updateUser({ displayName: name, photoURL: photo });
+    setUser({ ...res.user, displayName: name, photoURL: photo });
+    navigate("/");
+  } catch (err) {
+    console.error(err);
+    setError(err.message);
+  }
+};
 
   const handleGoogleRegister = async () => {
-    try {
-      await signInWithPopup(auth, provider);
-      navigate("/");
-    } catch (err) {
-      setError(err.message);
-    }
+    createUser().
+    then(res=>{
+      const user = res.user;
+    }).catch(error=>{
+      const errorCode = error.code;
+    })
   };
 
   return (
@@ -60,6 +59,7 @@ const Register = () => {
             placeholder="Name"
             required
             className="w-full px-4 py-2 border rounded"
+          
           />
 
           <input

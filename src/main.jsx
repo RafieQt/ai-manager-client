@@ -10,28 +10,37 @@ import SignIn from './Components/SignIn/SignIn.jsx';
 import AllModels from './Components/AllModels/AllModels.jsx';
 import Register from './Components/Register/Register.jsx';
 import AuthProvider from './context/AuthProvider.jsx';
+import AddModels from './Components/AddModels/AddModels.jsx';
+import PrivateRoute from './Layouts/PrivateRoute.jsx';
 
 const router = createBrowserRouter([
   {
     path: "/",
     Component: MainLayout,
-    children:[
+    children: [
       {
         index: true,
-        
+
         element: <Home></Home>
       },
       {
-        path:'/all-models',
-        loader:()=> fetch('http://localhost:5000/models'),
-        element:<AllModels></AllModels>
+        path: '/all-models',
+        loader: () => fetch('http://localhost:5000/models'),
+        element: <AllModels></AllModels>
       },
       {
-        path:'/signin',
+        path: '/add-models',
+
+        element: <PrivateRoute>
+          <AddModels></AddModels>
+        </PrivateRoute>
+      },
+      {
+        path: '/signin',
         element: <SignIn></SignIn>
       },
       {
-        path:'/register',
+        path: '/register',
         element: <Register></Register>
       },
 
@@ -43,7 +52,7 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <AuthProvider>
-      <RouterProvider router={router} />,
+      <RouterProvider router={router} />
     </AuthProvider>
-  </StrictMode>,
+  </StrictMode>
 )

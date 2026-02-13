@@ -1,19 +1,21 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link, NavLink } from 'react-router';
 import logo from '../../images/logo.jpg'
+import { AuthContext } from '../../context/AuthContext';
+import { toast } from 'react-toastify';
 
 
 const Navbar = () => {
 
+    const { user, logoutUser } = use(AuthContext);
+
+    const handleLogout = () => {
+        toast("logout");
+        logoutUser();
+
+    }
 
 
-    const profileLinks = <>
-        <li>Name</li>
-        <li>email</li>
-        <li><Link>Model Purchase Page</Link></li>
-        <li><Link>My Models</Link></li>
-        <li><Link>Logout</Link></li>
-    </>
 
 
     return (
@@ -30,21 +32,28 @@ const Navbar = () => {
                         <NavLink to="/">Home</NavLink>
                         <NavLink to="/add-models">Add Models</NavLink>
                         <NavLink to="/all-models">All Model</NavLink>
-                        <NavLink to="/signin">Sign in</NavLink>
+                        
                     </div>
 
                     {/* 3. Profile Dropdown (Right) */}
                     <div className="flex-1 flex justify-end"> {/* Use flex-1 and justify-end to balance the sides */}
-                        <div className="dropdown dropdown-end">
-                            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-                                <div className="w-10 rounded-full">
-                                    <img alt="User Profile" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                        {
+                            user ? <div className="dropdown dropdown-end">
+                                <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
+                                    <div className="w-10 rounded-full">
+                                        <img alt="User Profile" src={user?.photoURL || logo} />
+                                    </div>
                                 </div>
-                            </div>
-                            <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                                {profileLinks}
-                            </ul>
-                        </div>
+                                <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                                    <li className='text-center'>{user?.displayName || 'noName'}</li>
+                                    <li className='text-center'>{user.email}</li>
+                                    <li><Link>Model Purchase Page</Link></li>
+                                    <li><Link>My Models</Link></li>
+                                    <li><Link onClick={handleLogout}>Logout</Link></li>
+                                </ul>
+                            </div> :
+                                <Link to='/signin' className='btn'>Sign In</Link>
+                        }
                     </div>
                 </div>
             </div>
