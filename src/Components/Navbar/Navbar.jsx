@@ -47,7 +47,7 @@ const Navbar = () => {
                                 <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                                     <li className='text-center'>{user?.displayName || 'noName'}</li>
                                     <li className='text-center'>{user.email}</li>
-                                    <li><Link>Model Purchase Page</Link></li>
+                                    <li><Link to='mypurchases'>Model Purchase Page</Link></li>
                                     <li><Link to='mymodels'>My Models</Link></li>
                                     <li><Link onClick={handleLogout}>Logout</Link></li>
                                 </ul>

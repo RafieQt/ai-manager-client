@@ -14,6 +14,7 @@ import AddModels from './Components/AddModels/AddModels.jsx';
 import PrivateRoute from './Layouts/PrivateRoute.jsx';
 import ModelDetails from './Components/ModelDetails/ModelDetails.jsx';
 import MyModels from './Components/MyModels.jsx/MyModels.jsx';
+import MyPurchases from './Components/MyPurchases/MyPurchases.jsx';
 
 const router = createBrowserRouter([
   {
@@ -45,13 +46,21 @@ const router = createBrowserRouter([
         </PrivateRoute>
       },
       {
-        path: '/modelDetails/:id',
+        path: '/models/:id',
         loader: ({params})=>fetch(`http://localhost:5000/models/${params.id}`),
-
+        element: 
+          <PrivateRoute>
+            <ModelDetails />
+          </PrivateRoute>
+        
+      },
+      {
+        path: 'mypurchases',
         element: <PrivateRoute>
-          <ModelDetails></ModelDetails>
+          <MyPurchases></MyPurchases>
         </PrivateRoute>
       },
+
       {
         path: '/signin',
         element: <SignIn></SignIn>
