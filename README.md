@@ -2,6 +2,7 @@
 
 A web application to manage AI models where users can **add, view, purchase, and track AI models**. Built with the MERN stack and MongoDB Atlas for backend storage.
 
+Live Link: https://ai-manager-276d3.web.app/
 ---
 
 ## Features
