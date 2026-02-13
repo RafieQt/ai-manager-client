@@ -12,6 +12,8 @@ import Register from './Components/Register/Register.jsx';
 import AuthProvider from './context/AuthProvider.jsx';
 import AddModels from './Components/AddModels/AddModels.jsx';
 import PrivateRoute from './Layouts/PrivateRoute.jsx';
+import ModelDetails from './Components/ModelDetails/ModelDetails.jsx';
+import MyModels from './Components/MyModels.jsx/MyModels.jsx';
 
 const router = createBrowserRouter([
   {
@@ -24,15 +26,30 @@ const router = createBrowserRouter([
         element: <Home></Home>
       },
       {
-        path: '/all-models',
+        path: '/models',
         loader: () => fetch('http://localhost:5000/models'),
         element: <AllModels></AllModels>
       },
       {
-        path: '/add-models',
+        path: '/add-model',
 
         element: <PrivateRoute>
           <AddModels></AddModels>
+        </PrivateRoute>
+      },
+      {
+        path: '/mymodels',
+
+        element: <PrivateRoute>
+          <MyModels></MyModels>
+        </PrivateRoute>
+      },
+      {
+        path: '/modelDetails/:id',
+        loader: ({params})=>fetch(`http://localhost:5000/models/${params.id}`),
+
+        element: <PrivateRoute>
+          <ModelDetails></ModelDetails>
         </PrivateRoute>
       },
       {

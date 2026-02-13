@@ -30,8 +30,8 @@ const Navbar = () => {
                     {/* 2. NavLinks (Center) - Remove the wrapper that was grouping this with the profile */}
                     <div className='flex items-center gap-4'>
                         <NavLink to="/">Home</NavLink>
-                        <NavLink to="/add-models">Add Models</NavLink>
-                        <NavLink to="/all-models">All Model</NavLink>
+                        <NavLink to="/add-model">Add Model</NavLink>
+                        <NavLink to="/models">All Models</NavLink>
                         
                     </div>
 
@@ -48,7 +48,7 @@ const Navbar = () => {
                                     <li className='text-center'>{user?.displayName || 'noName'}</li>
                                     <li className='text-center'>{user.email}</li>
                                     <li><Link>Model Purchase Page</Link></li>
-                                    <li><Link>My Models</Link></li>
+                                    <li><Link to='mymodels'>My Models</Link></li>
                                     <li><Link onClick={handleLogout}>Logout</Link></li>
                                 </ul>
                             </div> :

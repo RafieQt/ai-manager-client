@@ -23,12 +23,12 @@ const Banner = () => {
 
                 <div className="mt-10 flex items-center justify-center gap-x-6">
                     <Link
-                        to="/all-models"
+                        to="/models"
                         className="rounded-md bg-blue-600 px-3.5 py-2.5 text-sm font-semibold shadow-sm hover:bg-blue-500 transition-colors"
                     >
                         Explore Models
                     </Link>
-                    <Link to="/add-models" className="text-sm font-semibold leading-6 hover:text-blue-400 transition-colors">
+                    <Link to="/add-model" className="text-sm font-semibold leading-6 hover:text-blue-400 transition-colors">
                         Add New Model <span aria-hidden="true">→</span>
                     </Link>
                 </div>
